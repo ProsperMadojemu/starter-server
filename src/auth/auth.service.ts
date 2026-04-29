@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Body, Injectable } from '@nestjs/common';
 
 @Injectable({}) // to be able to use the depen...
 // is responsible for handling the logic in requests
 export class AuthService {
   signup() {
-    return ' I have signed up';
+    return { message: 'i have signed up' };
   }
 
   signin() {

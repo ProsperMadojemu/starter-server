@@ -1,5 +1,6 @@
-import { Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { AuthDto } from './dto';
 
 /*
     The controller recieves request a from the internet then it calls a function from the auth.service class 
@@ -40,7 +41,8 @@ export class AuthController {
           }
   */
   @Post('signup')
-  signup() {
+  signup(@Body() dto: AuthDto) {
+    console.log({ dto });
     return this.authService.signup();
   }
 
