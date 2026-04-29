@@ -9,7 +9,7 @@ import { PrismaModule } from './prisma/prisma.module';
 })
 export class AppModule {}
 /* 
-  a module is a class that is annotated with a @module decorator
+  a module is a class that is annotated with apnpm dlx prisma init --output ../src/generated/prisma @module decorator
   https://docs.nestjs.com/modules
   basically it organizes your app 
 */
