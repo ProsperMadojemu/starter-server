@@ -7,7 +7,7 @@ import type { User } from '@prisma/client';
 @Controller('user')
 export class UserController {
   constructor(private userService: UserService) {}
-  @UseGuards(JwtGuards)
+  @UseGuards(JwtGuards) //this will protect the route and only allow authenticated users to access it
   @Get('me')
   getMe(@GetUser() user: User) {
     console.log('User info from JWT:', user);
