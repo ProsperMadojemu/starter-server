@@ -5,7 +5,7 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PrismaService } from '../../prisma/prisma.service';
 
 export type JwtPayload = {
-  sub: number;
+  id: number;
   email: string;
 };
 
@@ -25,11 +25,11 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   }
   async validate(payload: JwtPayload) {
     const user = await this.prisma.user.findUnique({
-      where: { id: payload.sub },
+      where: { id: payload.id },
     });
     if (!user) return null; //this will also block requests with 404
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { hash, ...rest } = user;
-    return { user: rest };
+    return rest;
   }
 }

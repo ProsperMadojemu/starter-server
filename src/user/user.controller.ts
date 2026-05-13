@@ -1,16 +1,22 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Patch, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { JwtGuards } from '../auth/guards';
 import { GetUser } from '../auth/decorators';
 import type { User } from '../../generated/prisma/client';
+import { EditUserDto } from './dto';
 
 @Controller('user')
+@UseGuards(JwtGuards) //this will protect the route and only allow authenticated users to access it
 export class UserController {
   constructor(private userService: UserService) {}
-  @UseGuards(JwtGuards) //this will protect the route and only allow authenticated users to access it
   @Get('me')
   getMe(@GetUser() user: User) {
-    console.log('User info from JWT:', user);
-    return this.userService.getMe();
+    return user;
+  }
+
+  @Patch()
+  editUser(@GetUser('id') user_id: number, @Body() dto: EditUserDto) {
+    console.log(user_id, dto);
+    return this.userService.editUser(user_id, dto);
   }
 }
